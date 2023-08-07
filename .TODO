@@ -1,0 +1,39 @@
+Herkese selam dostlar, yeni challange konunuz IoC (Indicator of Compromise) enrichment üzerine olucak. Api üzerinden verilen IoC’yi belirlediğiniz kaynaklar üzerinde analizini gerçekleştiriceksiniz. Daha sonrasında IoC hakkında elde ettiğiniz verileri db’nizde kayıt altında tutacaksınız. Burada projenizde beklentilerimiz şunlar;
+
+Analiz için kaynak araştırmasını sizin gerçekleştirmeniz.
+burada farklı kaynaklar ve methodlar kullanmanız çok daha değerli olucaktır.
+Projenizin minimum 10 farklı kaynakta analiz yapabilmesi
+Analiz sürecindeki tüm kaynakların async bir şekilde çalışabilmesi
+bir “/search” endpointinizin olması ve sadece IoC type’larını alması
+
+Ayrıca analiz ederken dikkat etmeniz gereken field'ler şunlar olabilir;
+geometric location
+malicious control
+blacklist
+whois
+
+Not: yukarıda gösterilen örnek kontroller dışına çıkmanız ve kendiniz yeni kontroller eklemeniz beklenilmektedir (-_-)
+
+Challange süresi boyunca kullanmanız gereken teknolojiler:
+python 3.11
+postgreSQL
+FastAPI (https://fastapi.tiangolo.com/tr/)
+ORM (https://docs.sqlalchemy.org/en/20/orm/)
+docker compose
+poetry (https://python-poetry.org/docs/)
+no print! yes log 😄
+
+Son olarak dostlar, proje süresi 2 haftadır. 7 Ağustos pazartesi gününe kadar development’ınıza devam edebilirsiniz. Süreçle alakalı sorularınızı mentorlarınıza iletebilirsiniz. Hepinize şimdiden iyi çalışmalar ve bol şanslar diliyorum
+
+# model schema database ust dizine tasi
+
+# ioc kaynaklari
+- https://virusscan.jotti.org/en-US/filescanjob/nvlo0cf0q3
+- https://www.virustotal.com/gui/file/27787f360ffee920f7357aee5a0f496e16f85fd50b73ec0c6798d338184caa55
+- https://www.hybrid-analysis.com
+-https://www.hybrid-analysis.com/sample/57c12d8573d2f3883a8a0ba14e3eec02ac1c61dee6b675b6c0d16e221c3777f4?environmentId=100
+https://hash.cymru.com/
+
+ipcheck
+https://www.stopforumspam.com/ipcheck/151.250.252.195
+hurricane electrik

@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "ioc-richer"
+version = "0.1.0"
+description = ""
+authors = ["melih isbilen <melihisbilen@gmail.com>"]
+readme = "README.md"
+packages = [{include = "ioc_richer"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.100.1"
+uvicorn = "^0.23.1"
+click = "^8.1.6"
+dynaconf = "^3.2.0"
+sqlalchemy = "^2.0.19"
+pydantic = "^2.1.1"
+psycopg2-binary = "^2.9.6"
+apscheduler = "^3.10.1"
+ipython = "^8.14.0"
+httpx = "^0.24.1"
+playwright = "^1.36.0"
+beautifulsoup4 = "^4.12.2"
+python-whois = "^0.8.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

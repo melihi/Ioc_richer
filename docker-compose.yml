@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  fastapi-service:
+    build: ./
+    command: python3.11 manage.py  --api
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "80:8000"
+    depends_on:
+      - ioc-richer-psql
+
+  ioc-richer-psql:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ioc_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+
+  enrichment-service:
+    build: ./
+    command: python3.11 manage.py  --crawler
+    depends_on:
+      - ioc-richer-psql
+    volumes:
+      - ./:/usr/src/app
