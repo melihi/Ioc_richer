@@ -3,8 +3,7 @@ import sys
 
 
 def setup_logger(logger_name: str, logfile: str):
-    """
-    Create logger .
+    """Create logger .
 
     Args :
         logger_name  : logger name .

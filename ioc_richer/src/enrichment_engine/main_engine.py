@@ -3,7 +3,9 @@ from ioc_richer.src.enrichment_engine.ip_enrichment.ip_enrichment import ip_enri
 from ioc_richer.src.enrichment_engine.domain_enrichment.domain_enrichment import (
     domain_enrichment,
 )
-from ioc_richer.src.enrichment_engine.domain_enrichment.google_ads import get_google_ads_transperency
+from ioc_richer.src.enrichment_engine.domain_enrichment.google_ads import (
+    get_google_ads_transperency,
+)
 from ioc_richer.src.enrichment_engine.file_enrichment.file_enrichment import (
     file_enrichment,
 )
@@ -16,8 +18,6 @@ logger = setup_logger("enrichment", "enrichment.log")
 
 
 def start_engine():
-    get_google_ads_transperency("google.com")
-    return
     data = read_data_enrichment()
 
     for fields in data:
@@ -32,7 +32,7 @@ def start_engine():
 
 def enrich_ip(fields: Ioc_model):
     data = ip_enrichment(fields.input_ioc)
-    
+
     if data[0] != "":
         update_data_enrichment(
             fields,
@@ -59,7 +59,7 @@ def enrich_ip(fields: Ioc_model):
     if data[3] != None:
         update_data_enrichment(
             fields,
-            (json.dumps(json.loads(data[3]), separators=(",", ":"))),
+            (json.dumps(json.loads(data[3]))),
             "ioc_virustotal_ip",
             Ioc_model.ioc_virustotal_ip,
         )
@@ -76,9 +76,37 @@ def enrich_ip(fields: Ioc_model):
     if data[5] != None:
         update_data_enrichment(
             fields,
-            (json.dumps(json.loads(data[5]), separators=(",", ":"))),
+            (json.dumps(json.loads(data[5]))),
             "ioc_virustotal_ip_comments",
             Ioc_model.ioc_virustotal_ip_comments,
+        )
+    if data[6] != None:
+        update_data_enrichment(
+            fields,
+            (json.dumps(json.loads(data[6]))),
+            "ioc_greynoise",
+            Ioc_model.ioc_greynoise,
+        )
+    if data[7] != None:
+        update_data_enrichment(
+            fields,
+            (json.dumps(json.loads(data[7]))),
+            "ioc_threatfox",
+            Ioc_model.ioc_threatfox,
+        )
+    if data[8] != None:
+        update_data_enrichment(
+            fields,
+            (json.dumps(json.loads(data[8]))),
+            "ioc_threatminer_host",
+            Ioc_model.ioc_threatminer_host,
+        )
+    if data[9] != None:
+        update_data_enrichment(
+            fields,
+            (json.dumps(json.loads(data[9]))),
+            "ioc_threatminer_ip_related",
+            Ioc_model.ioc_threatminer_ip_related,
         )
     update_data_enrichment(fields, True, "ioc_isenriched", Ioc_model.ioc_isenriched)
 
@@ -86,25 +114,59 @@ def enrich_ip(fields: Ioc_model):
 def enrich_domain(fields: Ioc_model):
     data = domain_enrichment(fields.input_ioc)
 
-    update_data_enrichment(
-        fields, json.loads(data[0]), "ioc_whois", Ioc_model.ioc_whois
-    )
-    update_data_enrichment(
-        fields,
-        json.loads(data[1]),
-        "ioc_alienvault_domain",
-        Ioc_model.ioc_alienvault_domain,
-    )
-    update_data_enrichment(
-        fields,
-        json.loads(data[2]),
-        "ioc_virustotal_domain",
-        Ioc_model.ioc_virustotal_domain,
-    )
-    update_data_enrichment(
-        fields, json.loads(data[3]), "ioc_domain_reputations", Ioc_model.ioc_domain_reputations
-    )
-
+    if data[0] != None:
+        update_data_enrichment(
+            fields, json.loads(data[0]), "ioc_whois", Ioc_model.ioc_whois
+        )
+    if data[1] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[1]),
+            "ioc_alienvault_domain",
+            Ioc_model.ioc_alienvault_domain,
+        )
+    if data[2] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[2]),
+            "ioc_virustotal_domain",
+            Ioc_model.ioc_virustotal_domain,
+        )
+    if data[3] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[3]),
+            "ioc_domain_reputations",
+            Ioc_model.ioc_domain_reputations,
+        )
+    if data[4] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[4]),
+            "ioc_threatminer_domain",
+            Ioc_model.ioc_threatminer_domain,
+        )
+    if data[5] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[5]),
+            "ioc_threatminer_report",
+            Ioc_model.ioc_threatminer_report,
+        )
+    if data[6] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[6]),
+            "ioc_threatfox",
+            Ioc_model.ioc_threatfox,
+        )
+    if data[7] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[7]),
+            "ioc_googleads",
+            Ioc_model.ioc_googleads,
+        )
     update_data_enrichment(fields, True, "ioc_isenriched", Ioc_model.ioc_isenriched)
 
 
@@ -118,13 +180,13 @@ def enrich_hash(fields: Ioc_model):
             "ioc_alienvault_hash",
             Ioc_model.ioc_alienvault_hash,
         )
-
-    update_data_enrichment(
-        fields,
-        json.loads((data[1])),
-        "ioc_virustotal_hash",
-        Ioc_model.ioc_virustotal_hash,
-    )
+    if data[1] != None:
+        update_data_enrichment(
+            fields,
+            json.loads((data[1])),
+            "ioc_virustotal_hash",
+            Ioc_model.ioc_virustotal_hash,
+        )
     if data[2] != None:
         update_data_enrichment(
             fields,
@@ -139,4 +201,39 @@ def enrich_hash(fields: Ioc_model):
             "ioc_virustotal_mitre",
             Ioc_model.ioc_virustotal_mitre,
         ) """
+    if data[4] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[4]),
+            "ioc_malshare",
+            Ioc_model.ioc_malshare,
+        )
+    if data[5] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[5]),
+            "ioc_threatfox",
+            Ioc_model.ioc_threatfox,
+        )
+    if data[6] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[6]),
+            "ioc_virustotal_file_behavior",
+            Ioc_model.ioc_threatfox,
+        )
+    if data[7] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[7]),
+            "ioc_malwarebazaar",
+            Ioc_model.ioc_malwarebazaar,
+        )
+    if data[8] != None:
+        update_data_enrichment(
+            fields,
+            json.loads(data[8]),
+            "ioc_threatminer_av_detect",
+            Ioc_model.ioc_threatminer_av_detect,
+        )
     update_data_enrichment(fields, True, "ioc_isenriched", Ioc_model.ioc_isenriched)

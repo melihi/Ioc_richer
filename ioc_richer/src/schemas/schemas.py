@@ -18,6 +18,16 @@ class BaseIoc(BaseModel):
     ioc_virustotal_hash: Json
     ioc_alienvault_domain: Json
     ioc_alienvault_hash: Json
+    ioc_threatminer_av_detect: Json
+    ioc_threatminer_host: Json
+    ioc_threatminer_domain: Json
+    ioc_threatminer_report: Json
+    ioc_threatminer_ip_related: Json
+    ioc_threatfox: Json
+    ioc_malshare: Json
+    ioc_greynoise: Json
+    ioc_googleads: Json
+    ioc_malwarebazaar: Json
     ioc_locations: Json
     ioc_domains: Json
     ioc_whois: Json
