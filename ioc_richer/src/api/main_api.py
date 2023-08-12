@@ -12,7 +12,7 @@ APP = fastapi.FastAPI()
 add_tables()
 
 
-@APP.get("/api/v1/ioc/all")  # ! , response_model=list[Ioc] )
+@APP.get("/api/v1/ioc/all")
 async def get_ioc(
     skip: int = 0, limit: int = 100, db: Session = fastapi.Depends(get_db)
 ):

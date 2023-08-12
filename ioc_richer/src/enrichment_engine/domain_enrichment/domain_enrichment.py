@@ -4,6 +4,14 @@ from ioc_richer.src.enrichment_engine.scan_services_enrichment.alienvault import
 from ioc_richer.src.enrichment_engine.scan_services_enrichment.virustotal import (
     get_virustotal_domain,
 )
+from ioc_richer.src.enrichment_engine.scan_services_enrichment.threatminer import (
+    get_threatminer_domain,
+    get_threatminer_report,
+)
+from ioc_richer.src.enrichment_engine.scan_services_enrichment.threatfox import (
+    search_threatfox,
+)
+from google_ads import get_google_ads_transperency
 from ioc_richer.src.http.request import *
 from bs4 import BeautifulSoup
 import json
@@ -19,6 +27,10 @@ def domain_enrichment(domain: str):
         get_alienvault_domain_info(domain),
         get_virustotal_domain(domain),
         query_blacklist(domain),
+        get_threatminer_domain(domain),
+        get_threatminer_report(domain),
+        search_threatfox(domain),
+        get_google_ads_transperency(domain),
     ]
     return data
 

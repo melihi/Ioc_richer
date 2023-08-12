@@ -6,6 +6,9 @@ from ioc_richer.src.enrichment_engine.scan_services_enrichment.virustotal import
     get_virustotal_ip_related_domains,
     get_virustotal_ipcomment,
 )
+from ioc_richer.src.enrichment_engine.scan_services_enrichment.greynoise import get_greynoise
+from ioc_richer.src.enrichment_engine.scan_services_enrichment.threatfox import search_threatfox
+from ioc_richer.src.enrichment_engine.scan_services_enrichment.threatminer import get_threatminer_host,get_threatminer_ip_related
 import json
 
 RIPE_NET = "https://rdap.db.ripe.net/ip/{}"
@@ -38,6 +41,10 @@ def ip_enrichment(ip: str):
         get_virustotal_ip(ip),
         get_virustotal_ip_related_domains(ip),
         get_virustotal_ipcomment(ip),
+        get_greynoise(ip),
+        search_threatfox(ip),
+        get_threatminer_host(ip),
+        get_threatminer_ip_related(ip),
     ]
     return data
 

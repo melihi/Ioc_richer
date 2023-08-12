@@ -3,6 +3,7 @@ from ioc_richer.src.enrichment_engine.ip_enrichment.ip_enrichment import ip_enri
 from ioc_richer.src.enrichment_engine.domain_enrichment.domain_enrichment import (
     domain_enrichment,
 )
+from ioc_richer.src.enrichment_engine.domain_enrichment.google_ads import get_google_ads_transperency
 from ioc_richer.src.enrichment_engine.file_enrichment.file_enrichment import (
     file_enrichment,
 )
@@ -15,6 +16,8 @@ logger = setup_logger("enrichment", "enrichment.log")
 
 
 def start_engine():
+    get_google_ads_transperency("google.com")
+    return
     data = read_data_enrichment()
 
     for fields in data:
@@ -29,6 +32,7 @@ def start_engine():
 
 def enrich_ip(fields: Ioc_model):
     data = ip_enrichment(fields.input_ioc)
+    
     if data[0] != "":
         update_data_enrichment(
             fields,
