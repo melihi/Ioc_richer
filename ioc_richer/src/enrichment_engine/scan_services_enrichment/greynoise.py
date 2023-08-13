@@ -1,5 +1,6 @@
-from ioc_richer.src.http.request import get_request, HEADERS
+from ioc_richer.src.http.request import get_request, HEADERS, httpx
 from ioc_richer.config import GREYNOISE_APIKEY
+import logging
 
 URL = "https://api.greynoise.io/v3/community/{}"
 
@@ -14,6 +15,10 @@ def get_greynoise(ip: str):
     Args:
         ip (str): ip address.
     """
-    response = get_request.get(URL.format(ip), headers=HEADERS)
-    if response.status_code == 200:
-        response.text
+    try:
+        response = get_request.get(URL.format(ip), headers=HEADERS)
+        if response.status_code == 200:
+            return response.text
+
+    except Exception as err:
+        logging.warn(f"get_greynoise Error: {err}")

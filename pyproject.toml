@@ -17,10 +17,10 @@ pydantic = "^2.1.1"
 psycopg2-binary = "^2.9.6"
 apscheduler = "^3.10.1"
 ipython = "^8.14.0"
-httpx = "^0.24.1"
 playwright = "^1.36.0"
 beautifulsoup4 = "^4.12.2"
 python-whois = "^0.8.0"
+httpx = "^0.24.1"
 
 
 [build-system]

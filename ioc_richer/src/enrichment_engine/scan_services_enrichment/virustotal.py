@@ -22,10 +22,13 @@ def get_virustotal_domain(domain: str):
     # --url https://www.virustotal.com/api/v3/domains/{domain} \
     # --HEADERSer 'x-apikey: <your API key>'
     """
-    resp = get_request(DOMAINS + domain, HEADERS)
-    if resp.status_code == 200:
-        return resp.text
-    return
+    try:
+        resp = get_request(DOMAINS + domain, HEADERS)
+        if resp.status_code == 200:
+            return resp.text
+
+    except Exception as err:
+        logging.warn(f"get_virustotal_domain Error: {err}")
 
 
 def get_virustotal_hash(hash: str):
@@ -34,14 +37,16 @@ def get_virustotal_hash(hash: str):
     #  --url https://www.virustotal.com/api/v3/files/{id} \
     #  --HEADERSer 'x-apikey: <your API key>'
     """
+    try:
+        resp = get_request(FILES + hash, HEADERS)
 
-    resp = get_request(FILES + hash, HEADERS)
-     
-    if resp.status_code == 200:
-        return resp.text
-    else:
-        logging.warn("Virustotal returned not http 200 . get_virustotal_hash ")
-    return
+        if resp.status_code == 200:
+            return resp.text
+        else:
+            logging.warn("Virustotal returned not http 200 . get_virustotal_hash ")
+
+    except Exception as err:
+        logging.warn(f"get_virustotal_hash Error: {err}")
 
 
 def get_virustotal_ip(ip: str) -> str:
@@ -50,13 +55,15 @@ def get_virustotal_ip(ip: str) -> str:
     # --HEADERSer 'x-apikey: <your API key>'
     # ip comments
     """
+    try:
+        resp = get_request(IP + ip, HEADERS)
+        if resp.status_code == 200:
+            return resp.text
+        else:
+            logging.warn("Virustotal returned not http 200 . get_virustotal_ip ")
 
-    resp = get_request(IP + ip, HEADERS)
-    if resp.status_code == 200:
-        return resp.text
-    else:
-        logging.warn("Virustotal returned not http 200 . get_virustotal_ip ")
-    return
+    except Exception as err:
+        logging.warn(f"get_virustotal_ip Error: {err}")
 
 
 def get_virustotal_ipcomment(ip: str) -> str:
@@ -65,13 +72,15 @@ def get_virustotal_ipcomment(ip: str) -> str:
     # --url https://www.virustotal.com/api/v3/ip_addresses/{ip}/comments \
     # --HEADERSer 'x-apikey: <your API key>'
     """
+    try:
+        resp = get_request(IP.format(ip), HEADERS)
+        if resp.status_code == 200:
+            return resp.text
+        else:
+            logging.warn("Virustotal returned not http 200 . get_virustotal_ipcomment ")
 
-    resp = get_request(IP.format(ip), HEADERS)
-    if resp.status_code == 200:
-        return resp.text
-    else:
-        logging.warn("Virustotal returned not http 200 . get_virustotal_ipcomment ")
-    return
+    except Exception as err:
+        logging.warn(f"get_virustotal_ipcomment Error: {err}")
 
 
 def get_virustotal_ip_related_domains(ip: str) -> list:
@@ -82,23 +91,26 @@ def get_virustotal_ip_related_domains(ip: str) -> list:
     """
     next_page = IP_RELATION.format(ip)
     datas = []
-
-    while next_page != None:
-        resp = get_request(next_page, HEADERS)
-        if resp.status_code == 200:
-            json_data = json.loads(resp.text)
-            datas.append(resp.text)
-            if "next" in json_data["links"]:
-                next_url = json_data["links"]["next"]
-                next_page = next_url
+    try:
+        while next_page != None:
+            resp = get_request(next_page, HEADERS)
+            if resp.status_code == 200:
+                json_data = json.loads(resp.text)
+                datas.append(resp.text)
+                if "next" in json_data["links"]:
+                    next_url = json_data["links"]["next"]
+                    next_page = next_url
+                else:
+                    next_page = None
             else:
-                next_page = None
-        else:
-            logging.warn(
-                "Virustotal returned not http 200 . get_virustotal_ip_related_domains"
-            )
-            break
-    return datas
+                logging.warn(
+                    "Virustotal returned not http 200 . get_virustotal_ip_related_domains"
+                )
+                break
+        return datas
+
+    except Exception as err:
+        logging.warn(f"get_virustotal_ip_related_domains Error: {err}")
 
 
 def get_virustotal_file_behavior(hash: str):
@@ -107,12 +119,17 @@ def get_virustotal_file_behavior(hash: str):
   --url https://www.virustotal.com/api/v3/files/{id}/behaviour_summary \
   --HEADERSer 'x-apikey: <your API key>'
     """
+    try:
+        resp = get_request(FILE_BEHAVIOR.format(hash), HEADERS)
+        if resp.status_code == 200:
+            return resp.text
+        else:
+            logging.warn(
+                "Virustotal returned not http 200 . get_virustotal_file_behavior "
+            )
 
-    resp = get_request(FILE_BEHAVIOR.format(hash), HEADERS)
-    if resp.status_code == 200:
-        return resp.text
-    else:
-        logging.warn("Virustotal returned not http 200 . get_virustotal_file_behavior ")
+    except Exception as err:
+        logging.warn(f"get_virustotal_file_behavior Error: {err}")
 
 
 def get_virustotal_mitre(hash: str) -> str:
@@ -121,8 +138,12 @@ def get_virustotal_mitre(hash: str) -> str:
     --url https://www.virustotal.com/api/v3/files/{id}/behaviour_mitre_trees \
     --HEADERSer 'x-apikey: <your API key>'
     """
-    resp = get_request(MITRE.format(hash), HEADERS)
-    if resp.status_code == 200:
-        return resp.text
-    else:
-        logging.warn("Virustotal returned not http 200 . get_virustotal_mitre ")
+    try:
+        resp = get_request(MITRE.format(hash), HEADERS)
+        if resp.status_code == 200:
+            return resp.text
+        else:
+            logging.warn("Virustotal returned not http 200 . get_virustotal_mitre ")
+
+    except Exception as err:
+        logging.warn(f"get_virustotal_mitre Error: {err}")

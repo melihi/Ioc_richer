@@ -11,7 +11,9 @@ from ioc_richer.src.enrichment_engine.scan_services_enrichment.threatminer impor
 from ioc_richer.src.enrichment_engine.scan_services_enrichment.threatfox import (
     search_threatfox,
 )
-from google_ads import get_google_ads_transperency
+from ioc_richer.src.enrichment_engine.domain_enrichment.google_ads import (
+    get_google_ads_transperency,
+)
 from ioc_richer.src.http.request import *
 from bs4 import BeautifulSoup
 import json

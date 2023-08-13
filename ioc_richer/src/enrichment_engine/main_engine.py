@@ -3,9 +3,7 @@ from ioc_richer.src.enrichment_engine.ip_enrichment.ip_enrichment import ip_enri
 from ioc_richer.src.enrichment_engine.domain_enrichment.domain_enrichment import (
     domain_enrichment,
 )
-from ioc_richer.src.enrichment_engine.domain_enrichment.google_ads import (
-    get_google_ads_transperency,
-)
+
 from ioc_richer.src.enrichment_engine.file_enrichment.file_enrichment import (
     file_enrichment,
 )
@@ -163,7 +161,7 @@ def enrich_domain(fields: Ioc_model):
     if data[7] != None:
         update_data_enrichment(
             fields,
-            json.loads(data[7]),
+            json.dumps(data[7]),
             "ioc_googleads",
             Ioc_model.ioc_googleads,
         )
@@ -215,24 +213,18 @@ def enrich_hash(fields: Ioc_model):
             "ioc_threatfox",
             Ioc_model.ioc_threatfox,
         )
+
     if data[6] != None:
         update_data_enrichment(
             fields,
             json.loads(data[6]),
-            "ioc_virustotal_file_behavior",
-            Ioc_model.ioc_threatfox,
+            "ioc_malwarebazaar",
+            Ioc_model.ioc_malwarebazaar,
         )
     if data[7] != None:
         update_data_enrichment(
             fields,
             json.loads(data[7]),
-            "ioc_malwarebazaar",
-            Ioc_model.ioc_malwarebazaar,
-        )
-    if data[8] != None:
-        update_data_enrichment(
-            fields,
-            json.loads(data[8]),
             "ioc_threatminer_av_detect",
             Ioc_model.ioc_threatminer_av_detect,
         )
